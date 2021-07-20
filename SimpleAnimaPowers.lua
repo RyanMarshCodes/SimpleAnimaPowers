@@ -68,7 +68,6 @@ end
 
 function SAP:OnLoad(self, addon, ...)
     if (addon == "SimpleAnimaPowers") then
-        print("this got called?")
         SAP:RegisterEvent("CHAT_MSG_LOOT", "OnLoot")
 
         if not _G.SAPSettings then
@@ -87,11 +86,6 @@ function SAP:OnLoad(self, addon, ...)
         frame:SetPoint("LEFT", 50, 0, _G.UIParent)
         frame:SetTitle("SimpleAnimaPowers")
         frame:SetLayout("Fill")
-        -- frame:SetMovable(true)
-        -- frame:EnableMouse(true)
-        -- frame:RegisterForDrag("LeftButton")
-        -- frame:SetScript("OnDragStart", frame.StartMoving)
-        -- frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
         frame:SetCallback(
             "OnShow",
             function()

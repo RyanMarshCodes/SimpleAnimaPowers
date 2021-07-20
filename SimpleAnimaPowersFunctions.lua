@@ -110,8 +110,6 @@ function SAP:UpdateGUI(t)
     table.sort(sortedKeys, function (a, b) 
         local a_pinned = tableHasValue(pinned, a)
         local b_pinned = tableHasValue(pinned, b)
-        -- print(a, a_pinned)
-        -- print(b, b_pinned)
 
         if (a_pinned and not b_pinned) then
             return true
@@ -165,16 +163,6 @@ function SAP:UpdateGUI(t)
     end
 
     container:DoLayout()
-end
-
-function SAP:OnGroupSelected(container, event, group)
-    container:ReleaseChildren()
-
-    if group == "tab1" then
-        print('tab 1')
-    elseif group == "tab2" then
-        print('tab 2')
-    end
 end
 
 function SAP:UpdateGroupPowers()
