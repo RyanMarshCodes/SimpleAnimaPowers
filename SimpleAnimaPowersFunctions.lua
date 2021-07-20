@@ -18,7 +18,7 @@ local tableHasValue = function(t, v)
 end
 
 local split = function(pString, pPattern)
-    local Table = {}  -- NOTE: use {n = 0} in Lua-5.0
+    local Table = {}
     local fpat = "(.-)" .. pPattern
     local last_end = 1
     local s, e, cap = pString:find(fpat, 1)
@@ -43,12 +43,9 @@ local pinnedPowers = function ()
 end
 
 function spairs(t, order)
-    -- collect the keys
     local keys = {}
     for k in pairs(t) do keys[#keys+1] = k end
 
-    -- if order function given, sort by it by passing the table and keys a, b,
-    -- otherwise just sort the keys 
     if order then
         table.sort(keys, function(a,b) return order(t, a, b) end)
     else
@@ -126,7 +123,7 @@ function SAP:UpdateGUI(t)
         spellLabel:SetFullWidth(true)
         spellLabel:SetFont(_G.GameFontNormalHuge2:GetFont())
         spellLabel:SetCallback("OnEnter", function(widget)
-            local tooltip = GameTooltip;  -- Replace with your custom tooltip.            
+            local tooltip = GameTooltip;           
             tooltip:SetOwner(UIParent, "ANCHOR_CURSOR");
             tooltip:SetHyperlink(GetSpellLink(spellId))
             tooltip:Show();
@@ -160,6 +157,13 @@ function SAP:UpdateGUI(t)
         unitsLabel:SetText(allNames)
 
         container:AddChild(unitsLabel)
+
+        -- add spacer after every group (makes it look a bit nicer)
+        local spacer = GUI:Create("Label")
+        spacer:SetFullWidth(true)
+        spacer:SetHeight(10)
+        spacer:SetText(" ")
+        container:AddChild(spacer)
     end
 
     container:DoLayout()
