@@ -1,0 +1,10 @@
+## Interface: 90100
+## Title: |cFFFF69B4SimpleAnimaPowers|r by |cFFDFFB58LolWTFRyan|r
+## Author: LolWTFRyan
+## Version: 0.0.1
+## SavedVariables: SAPSettings
+
+Taintless.xml
+Embeds.xml
+Locale\Locale.xml
+SimpleAnimaPowers.xml
