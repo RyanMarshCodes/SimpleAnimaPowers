@@ -102,7 +102,6 @@ function SAP:UpdateGUI(t)
 	local container = _G.SimpleAnimaPowersFrame_MainContainer
 
 	container:ReleaseChildren()
-
 	-- loop through and add labels for each power + group member with power
 	local pinned = pinnedPowers()
 	local sortedKeys = {}
@@ -139,7 +138,14 @@ function SAP:UpdateGUI(t)
 		end)
 
 		local _, _, icon = GetSpellInfo(spellId)
-		local ret = "|T" .. icon .. ":0|t " .. GetSpellLink(spellId) .. "  [" .. table.getn(t[k]) .. "]"
+		local ret = "|T"
+			.. icon
+			.. ":0|t "
+			.. GetSpellLink(spellId)
+			.. "  ["
+			.. table.getn(t[k])
+			.. "]"
+			.. (pinned[spellId] ~= nil and "**" or "")
 		spellLabel:SetText(ret)
 
 		container:AddChild(spellLabel)

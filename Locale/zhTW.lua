@@ -2,7 +2,7 @@
 
 local L = LibStub("AceLocale-3.0"):NewLocale("SimpleAnimaPowers", "zhTW")
 if not L then
-    return
+	return
 end
 
 L["Enable for Sanctum of Dominion: Tarragrue"] = "啟用在統御聖所：泰拉古魯"
@@ -11,3 +11,6 @@ L["Enable for Mythic Dungeons"] = "在傳奇地城啟用"
 
 L["Pinned spell IDs"] = "釘選法術ID"
 L["Separate spell IDs by comma"] = "以逗號分隔法術ID"
+
+L["Lock Frame"] = true
+L["Lock frame position and size"] = true

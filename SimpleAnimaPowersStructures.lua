@@ -7,6 +7,7 @@ SAP.DefaultConfig = {
 	Torghast = true,
 	MPlus = true,
 	PinnedSpells = "",
+	WindowIsLocked = false,
 }
 
 SAP.AceConfig = {
@@ -16,7 +17,7 @@ SAP.AceConfig = {
 			name = L["Enable for Sanctum of Dominion: Tarragrue"],
 			type = "toggle",
 			width = "full",
-			order = 1,
+			order = 2,
 			set = function(_, val)
 				SAP.Settings.Tarragrue = val
 				SAP:UpdateConfig()
@@ -29,7 +30,7 @@ SAP.AceConfig = {
 			name = L["Enable for Torghast"],
 			type = "toggle",
 			width = "full",
-			order = 2,
+			order = 3,
 			set = function(_, val)
 				SAP.Settings.Torghast = val
 			end,
@@ -41,7 +42,7 @@ SAP.AceConfig = {
 			name = L["Enable for Mythic Dungeons"],
 			type = "toggle",
 			width = "full",
-			order = 3,
+			order = 4,
 			set = function(_, val)
 				SAP.Settings.MPlus = val
 			end,
@@ -54,12 +55,33 @@ SAP.AceConfig = {
 			desc = L["Separate spell IDs by comma"] .. "\r\n(e.g 337620,338733,337613)",
 			type = "input",
 			width = "full",
-			order = 4,
+			order = 5,
 			set = function(_, val)
 				SAP.Settings.PinnedSpells = val
 			end,
 			get = function(_)
 				return SAP.Settings.PinnedSpells
+			end,
+		},
+		lockWindow = {
+			name = L["Lock Frame"],
+			desc = L["Lock frame position and size"],
+			type = "toggle",
+			width = "full",
+			order = 1,
+			set = function(_, val)
+				SAP.Settings.WindowIsLocked = val
+
+				if SAP.Settings.WindowIsLocked then
+					_G.SimpleAnimaPowersFrame.frame:SetMovable(false)
+					_G.SimpleAnimaPowersFrame.frame:SetResizable(false)
+				else
+					_G.SimpleAnimaPowersFrame.frame:SetMovable(true)
+					_G.SimpleAnimaPowersFrame.frame:SetResizable(true)
+				end
+			end,
+			get = function(_)
+				return SAP.Settings.WindowIsLocked
 			end,
 		},
 	},

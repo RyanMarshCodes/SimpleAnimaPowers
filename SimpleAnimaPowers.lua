@@ -53,9 +53,8 @@ _G.SLASH_SAP1 = "/sap"
 _G.SLASH_SAP2 = "/simpleanimapowers"
 
 _G.SlashCmdList["SAP"] = function()
-	SAP:UpdateGroupPowers()
-
 	if not _G.SimpleAnimaPowersFrame:IsVisible() then
+		SAP:UpdateGroupPowers()
 		_G.SimpleAnimaPowersFrame:Show()
 	else
 		_G.SimpleAnimaPowersFrame:Hide()
@@ -74,6 +73,12 @@ function SAP:OnLoad(self, addon, ...)
 			_G.SAPSettings = SAP.DefaultConfig
 		end
 
+		if _G.SAPSettings ~= nil then
+			if not _G.SAPSettings.WindowIsLocked then -- V 0.0.4
+				_G.SAPSettings.WindowIsLocked = SAP.DefaultConfig.WindowIsLocked
+			end
+		end
+
 		SAP.Settings = _G.SAPSettings
 
 		CR:RegisterOptionsTable("SimpleAnimaPowers", SAP.AceConfig, nil)
@@ -89,6 +94,18 @@ function SAP:OnLoad(self, addon, ...)
 		frame:SetCallback("OnShow", function()
 			SAP:OnShow(SAP)
 		end)
+		frame:SetCallback("OnDragStart", function(widget)
+			if _G.SAPSettings.WindowIsLocked then
+				return
+			end
+
+			widget.frame:ClearAllPoints()
+
+			widget.frame:StartMoving()
+		end)
+		frame:SetCallback("OnDragStop", function(widget)
+			widget.frame:StopMovingOrSizing()
+		end)
 
 		_G.SimpleAnimaPowersFrame_MainContainer = GUI:Create("ScrollFrame")
 		local container = _G.SimpleAnimaPowersFrame_MainContainer
@@ -102,12 +119,10 @@ function SAP:OnLoad(self, addon, ...)
 end
 
 function SAP:OnLoot(event, ...)
-	print(...)
 	local message = select(1, ...)
 
 	if _G.strfind(message, MAW_POWER_DESCRIPTION) ~= nil then
 		if (SAP.Settings.Tarragrue and IsInSanctum()) or (SAP.Settings.Torghast and IsInTorghast()) or IsInMPlus() then
-			print("fired")
 			SAP:UpdateGroupPowers()
 			SAP:UpdateGUI(SAP.GroupPowers)
 		end
